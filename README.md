@@ -4,11 +4,13 @@ QSAR for predicting the mutagenicity of environmental metabolites of Polycyclic 
 This QSAR is based on data from the Chemical Carcinogenesis Research Information System. The data can be downloaded as an xml file. 
 https://www.nlm.nih.gov/databases/download/ccris.html
 
-read_ccris_data.py reads the data out of ccris, converts the cas numbers to smiles codes, and writes the data off to an excel file. 
+note: a small subset of this data is used as a test for the read xml function. Users should download the full file from this original link. 
 
-padel_Data
+read_ccris_data.py reads the data out of ccris, converts the cas numbers to smiles codes, and writes the data off to an excel file. CAS numbers are converted to SMILES codes by http://cactus.nci.nih.gov/chemical/structure/'
+
+padel_Data will look in the directory it was launched from for .out files. The smiles code needs to be in the header of the file as a comment. 
 
 if gaussian ".out" files are available, padel_Data.py will attempt to use these for the structure. 
 
-
+recursive featureSelection will iterate over the specified range to select the ideal number of features, based on the specified input metrics. This is a time consuming process, so it is recommended that this be run on a cluster if possible. 
 
