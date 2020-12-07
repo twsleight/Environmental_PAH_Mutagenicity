@@ -3,7 +3,6 @@ tests/__pycache__/
 .docstring
 build/*
 dist/*
-data/*
 development/*
 *.egg-info/
 __pycache__
