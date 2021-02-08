@@ -7,7 +7,7 @@ def test_convert_xml_xlsx():
     parent = os.path.join(os.path.abspath(__file__), os.pardir)
     #retrieve the ccris.xml file from the data folder
 
-    filename = os.path.abspath(os.path.join(parent,'..', 'data', 'test_CCRIS_data.xml'))
+    filename = os.path.abspath(os.path.join(parent,'..', 'test_data', 'test_CCRIS_data.xml'))
 
     df = convert_xml_xlsx(filename)
 
