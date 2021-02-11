@@ -6,15 +6,20 @@ Created on Wed Oct 30 09:27:56 2019
 """
 #acknowledgements
 #https://stackoverflow.com/a/54932071/10226776 for the CIR convert function
-import os
 import pandas as pd
+import ssl
+
+
+# This restores the same behavior as before.
+context = ssl._create_unverified_context()
+# urllib.urlopen("https://no-valid-cert", context=context)
 
 from urllib.request import urlopen
 
 def CIRconvert(ids):
     try:
         url = 'http://cactus.nci.nih.gov/chemical/structure/' + ids + '/smiles'
-        ans = urlopen(url).read().decode('utf8')
+        ans = urlopen(url, context = context).read().decode('utf8')
         return ans
     except:
         return 'Did not work'
@@ -23,7 +28,15 @@ def CIRconvert(ids):
 
 import xml.etree.ElementTree as etree
 from Environmental_PAH_Mutagenicity.read_ccris_data import CIRconvert
+
 def convert_xml_xlsx(filename):
+    '''function for reading the CCRIS xml file    
+
+    Args: filename (if i working directory) or filepath to xml file
+    
+    Returns: df_rows, dataframe containing the mutagenicity data
+    '''   
+    
     tree = etree.parse(filename)
     root = tree.getroot()
 
