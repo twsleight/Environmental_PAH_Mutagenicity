@@ -7,7 +7,11 @@ Welcome to Environmental_PAH_Mutagenicity's documentation!
 .. automodule:: Environmental_PAH_Mutagenicity.read_ccris_data
     :members:
 
-.. automodule:: Environmental_PAH_Mutagenicity.classify_mutagnes
+.. automodule:: Environmental_PAH_Mutagenicity.classify_mutagens
+    :members:
+
+
+.. automodule:: Environmental_PAH_Mutagenicity.gethlenergy
     :members:
 
 .. toctree::
