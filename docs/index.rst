@@ -5,6 +5,9 @@ Welcome to Environmental_PAH_Mutagenicity's documentation!
 .. automodule:: Environmental_PAH_Mutagenicity.classify_mutagens
     :members:
 
+.. automodule:: Environmental_PAH_Mutagenicity.read_ccris_data
+    :members:
+
 
 .. toctree::
    :maxdepth: 2
