@@ -11,7 +11,5 @@ read_ccris_data.py reads the data out of ccris, converts the cas numbers to smil
 
 padel_Data will look in the directory it was launched from for .out files. The smiles code needs to be in the header of the file as a comment. 
 
-if gaussian ".out" files are available, padel_Data.py will attempt to use these for the structure. 
-
-recursive featureSelection will iterate over the specified range to select the ideal number of features, based on the specified input metrics. This is a time consuming process, so it is recommended that this be run on a cluster if possible. 
+A test dataset is provided as the manusript for this analysis is currently in review
 
