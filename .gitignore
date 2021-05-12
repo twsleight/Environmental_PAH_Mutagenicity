@@ -2,10 +2,12 @@ tests/__pycache__/
 .vscode
 .spyproject
 .docstring
+**/*~
 build/*
 dist/*
 testdocs/*
 data/*
+unpublished/*
 development/*
 plots/*.png
 *.mdl
