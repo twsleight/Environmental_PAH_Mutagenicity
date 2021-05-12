@@ -1,5 +1,4 @@
 
-
 import pandas as pd
 from sklearn.metrics import confusion_matrix 
 from rdkit import Chem
@@ -17,11 +16,23 @@ def standardize_SMILES(df, column_smiles):
 
 
 
-df = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\TEST_predictions.xlsx", sheet_name = 'Sheet1')
-df['Pred_Result'] = (df['Pred_Consensus'] >= 0.5).astype(int)
+# #translate the mutagenicity data into numbers
+# for i, row in df.iterrows():
+#     mut = row['Mutagenicity (Ames test) CONSENSUS model - assessment']
+    
+#     df.at[i, 'Pred_Result'] = 0  
+    
+#     if mut.find("Mutagenic") == 0: 
+#         df.at[i, 'Pred_Result'] = 1      
+    
+#     if mut.find("NON-Mutagenic") > 0:
+#         df.at[i, 'Pred_Result'] = 0
 
 
-
+df = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\vega_predictions.xlsx", sheet_name = 'Sheet1')
+        
+    
+#calculate the confusion matrix
 conf = confusion_matrix(df['result_from_database'], df['Pred_Result'])
 tn = conf[0,0]
 tp = conf[1,1]
@@ -37,4 +48,7 @@ print('Recall/Sensitivity ', tp/(tp+fn))
 rec =  tp/(tp+fn)
 print('Specificity is ', tn/(tn+fp))
 print('F1 is ', 2*(prec*rec)/(prec+rec))
+
+
+
 
