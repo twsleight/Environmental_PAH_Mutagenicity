@@ -1,4 +1,4 @@
-# Environmental_PAH_Mutagenicity   [![Build Status](https://travis-ci.org/twsleight/Environmental_PAH_Mutagenicity.svg?branch=master)](https://travis-ci.org/twsleight/Environmental_PAH_Mutagenicity)  [![Documentation Status](https://readthedocs.org/projects/environmental-pah-mutagenicity/badge/?version=latest)](https://environmental-pah-mutagenicity.readthedocs.io/en/latest/?badge=latest)
+# Environmental_PAH_Mutagenicity  
 
 QSAR for predicting the mutagenicity of environmental metabolites of Polycyclic Aromatic Hydrocarbons, based on training data from the Ames Test TA98 and TA100 strains.
 
@@ -12,4 +12,6 @@ read_ccris_data.py reads the data out of ccris, converts the cas numbers to smil
 padel_Data will look in the directory it was launched from for .out files. The smiles code needs to be in the header of the file as a comment. 
 
 A test dataset is provided as the manusript for this analysis is currently in review
+
+You will also need openbabel and rdkit installed
 
