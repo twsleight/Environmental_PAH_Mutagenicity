@@ -13,3 +13,5 @@ padel_Data will look in the directory it was launched from for .out files. The s
 
 A test dataset is provided as the manusript for this analysis is currently in review
 
+You will also need openbabel and rdkit installed
+
