@@ -13,7 +13,6 @@ setup(
                      'scikit-learn~=0.23',
                      'statsmodels~=0.12',
                      'openbabel>=3.1',
-                     'openbabel-python>=1.6',
                      'padelpy~=0.1', 
                      
                      ], #external packages as dependencies
