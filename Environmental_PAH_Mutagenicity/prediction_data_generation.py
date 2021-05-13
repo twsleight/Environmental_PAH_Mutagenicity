@@ -260,7 +260,7 @@ bigDataFrame2 = bigDataFrame2[ columnList]
 
 #Write off the final data
 
-# writer = pd.ExcelWriter('b3lyp_data_2.xlsx')
+# writer = pd.ExcelWriter('mutagen_data.xlsx')
 # bigDataFrame2.to_excel(writer,'Sheet1')
 # writer.save()                
 # writer.close()

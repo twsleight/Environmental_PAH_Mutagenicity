@@ -27,7 +27,16 @@ from rdkit import Chem
 #if you've already written it to an excel file from a previous run use that first. 
 ccrisData = pd.read_excel(r"C:\ResearchWorkingDirectory\MutagenicityTrainingData\CCRISdata.xlsx", sheet_name = 'Sheet1')
 
-data = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\mutagenicity_data.xlsx", sheet_name = 'Sheet1')
+
+
+parent = os.path.join(os.path.abspath(__file__), os.pardir)
+filename = os.path.abspath(os.path.join(parent,'..', 
+                                        'Final_Data', 
+                                        'small_mutagenicity_data.xlsx'))
+
+data = pd.read_excel(filename, sheet_name = 'Sheet1')
+
+
 
 #keep this for now just for evaluation
 dataRef = data[['SMILES', 'name', 'CAS', 'result']]
@@ -44,7 +53,7 @@ newAmes2.drop(labels = ['Strain', 'method', 'Unnamed: 0'], axis = 1,inplace = Tr
 #don't use a subset yet because therea re multiple entries
 newAmes2.drop_duplicates(inplace = True)
 
-# #need to join in the smiles
+# #need to join in the smiles if you already have a reference
 # newAmes2 = pd.merge(left=dataRef, right=newAmes2, left_on='CAS', right_on='CAS', copy = False)
 # newAmes2.rename(columns={'SMILES_x':'SMILES'}, inplace = True)
 # newAmes2.rename(columns={'result_x':'result'}, inplace = True)
@@ -59,12 +68,10 @@ newAmes2.replace({'NEGATIVE; 99.8% PURE':0}, inplace = True)
 
 newAmes2.drop_duplicates(inplace = True)
 
-
+#can get smiles like this if you don't have a reference for them already. 
 for i, row in newAmes2.iterrows():
     smiles = CIRconvert(row['CAS'])
     newAmes2.at[i,'SMILES'] = smiles
-    if i < 20:
-        break
     print(i)
 
 #select just the data desired
@@ -117,15 +124,11 @@ for i, row in newAmes2.iterrows():
         print('dumped ', curSmiles)
 
        
-             
-            
 #some compounds have different names or multiple CAS values, so ignore those. 
 finalDF2.drop_duplicates(subset = ['SMILES', 'result'], inplace = True)
 #if desired, optimize the structures in Gaussian
 
 final_Data = finalDF2
-
-final_Data.rename(columns={'result':'result_multi'}, inplace = True)
 
 # writer = pd.ExcelWriter('selected_data.xlsx')
 # final_Data.to_excel(writer,'Sheet1')

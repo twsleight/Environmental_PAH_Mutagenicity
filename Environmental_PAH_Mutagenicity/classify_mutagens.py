@@ -180,8 +180,6 @@ def RemoveHighestVIF(finaldata, VIF_threshhold, pref_descriptors):
 #changes working directory
 os.chdir(r'C:\ResearchWorkingDirectory\finalData_QSAR\rawData')
 
-# data = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\mutagenicity_data.xlsx", sheet_name = 'Sheet1')
-
 data = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\small_mutagenicity_data.xlsx", sheet_name = 'Sheet1')
 
 #create a copy that won't be modified by any processing later
@@ -217,7 +215,7 @@ X = X[:, ~np.isinf(X ).any(axis=0)]
 
 # len(headers2)
 
-
+#if you wanted to cluster from scratch
 principalComponents = PCA(n_components=10).fit_transform(X)
 PCA_components = pd.DataFrame(principalComponents)
 X = PCA_components.iloc[:,:5]
@@ -227,7 +225,7 @@ kmeans = KMeans(n_clusters=3, random_state=0)
 clusters = kmeans.fit_predict(X)
 clust_DF = pd.DataFrame({'cluster':clusters, 'SMILES': dataOrig['SMILES']}) 
 
-
+#use the cluster data from bts_padel_lr_clust
 clust_DF = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\cluster_data.xlsx", sheet_name = 'cluster_assignments')
 
 #use for data accross the full equation
