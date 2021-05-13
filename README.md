@@ -15,3 +15,5 @@ A test dataset is provided as the manusript for this analysis is currently in re
 
 You will also need openbabel and rdkit installed
 
+Note: This research is being actively used in other projects, so pushes may be made periodically but will not affect the overall functionality of the system. 
+
