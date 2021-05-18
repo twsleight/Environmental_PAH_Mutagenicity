@@ -232,13 +232,13 @@ clust_DF = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagen
 data = dataOrig
 
 #use to select data from just one cluster
-# data = dataOrig.loc[clust_DF['cluster']==0]
+# data = dataOrig.loc[clust_DF['cluster']==2]
 
-# file 1 goes with cluster 0, small molecules
+# file 0 goes with cluster 0, small molecules
 #cluster 1 is other molecules
-#clsuter 2 is larger molecules file 0 goes with it. 
+#clsuter 2 is larger molecules file 2 goes with it. 
 
-#the _1 file goes with the smaller molecules cluster, 210 molecules in it. 
+#the _1 file goes with the smaller molecules cluster, 215 molecules in it. 
 bestData = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\test_DescSelect_all.xlsx", sheet_name = 'Descriptors')
 
 
@@ -270,7 +270,7 @@ for i in range(30, 901,90):
 finalIDS = list(set(allselectDesc))  #['HLgap']
 
 
-#305 is cluster 0, 40 is cluster 2, 210 is cluster 1
+#301 is cluster 2, 41 is cluster 1, 215 is cluster 0
 
 #get the descriptors that were found 3 times or more
 a = Counter(allselectDesc)
@@ -729,16 +729,19 @@ plt.show()
 
 
 #******************************************************************
-# #save the fitted model for use later
+#save the fitted model for use later
+
+# os.chdir(r'C:\ResearchWorkingDirectory\Dissertation_Specific_Code')
+
 # from joblib import dump
-# dump(logmodel, 'smaller.joblib') 
+# dump(logmodel, 'larger.joblib') 
 
-# dump(kmeans, 'kmeans_clusters.joblib') 
+# # dump(kmeans, 'kmeans_clusters.joblib') 
 
 
-#also save off the columns that should be used with the model
+# # also save off the columns that should be used with the model
 # df = pd.DataFrame(columnNames)
-# writer = pd.ExcelWriter(r'C:\ResearchWorkingDirectory\Dissertation_Specific_Code\SmallerColumnNames.xlsx', engine='xlsxwriter')
+# writer = pd.ExcelWriter(r'C:\ResearchWorkingDirectory\Dissertation_Specific_Code\LargerColumnNames.xlsx', engine='xlsxwriter')
 # df.to_excel(writer, sheet_name='Sheet1', index=False)
 # writer.save()
 
