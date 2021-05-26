@@ -176,6 +176,9 @@ def RemoveHighestVIF(finaldata, VIF_threshhold, pref_descriptors):
 
     return finaldata
 ####################################
+#end of function declarations
+##################################
+#see note to user below
 
 #set working directory
 # os.chdir(r'C:\ResearchWorkingDirectory\finalData_QSAR\rawData')
@@ -242,6 +245,11 @@ filename = os.path.abspath(os.path.join(parent,'..',
 clust_DF = pd.read_excel(filename, sheet_name = 'cluster_assignments')
 
 
+#note to the user
+#there are 3 lines of code to adjust depending if you want to 
+#analyzed the full dataset or only a cluster The are all right below this
+#note. 
+
 
 #use for data accross the full equation
 data = dataOrig
@@ -251,9 +259,10 @@ data = dataOrig
 
 # file 0 goes with cluster 0, small molecules
 #cluster 1 is other molecules
-#clsuter 2 is larger molecules file 2 goes with it. 
+#clsuter 2 is larger molecules file 
 
-#the _1 file goes with the smaller molecules cluster, 215 molecules in it. 
+#the _0 file goes with the smaller molecules cluster, 215 molecules in it. 
+#the _2 file goes with the smaller molecules cluster, 301 molecules in it. 
 
 filename = os.path.abspath(os.path.join(parent,'..', 
                                         'Final_Data', 
@@ -499,7 +508,16 @@ X = add_constant(finaldata)
 vifData = pd.Series([variance_inflation_factor(X.values, i) 
                for i in range(X.shape[1])], index=X.columns)
 
-pref_descriptors = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\DescriptorPriority.xlsx", sheet_name = 'Sheet1')
+
+filename = os.path.abspath(os.path.join(parent,'..', 
+                                        'Final_Data', 
+                                        'DescriptorPriority.xlsx'))
+
+pref_descriptors = pd.read_excel(filename, sheet_name = 'Sheet1')
+
+
+
+
 
 dataX = finaldata
 dataX = RemoveHighestVIF(finaldata,5,pref_descriptors)
