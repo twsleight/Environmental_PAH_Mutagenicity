@@ -3,7 +3,7 @@
 import pandas as pd
 from sklearn.metrics import confusion_matrix 
 from rdkit import Chem
-
+import os
 
 def standardize_SMILES(df, column_smiles):
      
@@ -17,7 +17,17 @@ def standardize_SMILES(df, column_smiles):
 
 
 
-df = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\TEST_predictions.xlsx", sheet_name = 'Sheet1')
+parent = os.path.join(os.path.abspath(__file__), os.pardir)
+
+filename = os.path.abspath(os.path.join(parent,'..', 
+                                        'Final_Data', 
+                                        'TEST_predictions.xlsx'))
+
+df = pd.read_excel(filename, sheet_name = 'Sheet1')
+ 
+
+
+
 df['Pred_Result'] = (df['Pred_Consensus'] >= 0.5).astype(int)
 
 

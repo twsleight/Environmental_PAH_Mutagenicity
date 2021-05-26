@@ -2,6 +2,7 @@
 import pandas as pd
 from sklearn.metrics import confusion_matrix 
 from rdkit import Chem
+import os
 
 
 def standardize_SMILES(df, column_smiles):
@@ -28,9 +29,15 @@ def standardize_SMILES(df, column_smiles):
 #     if mut.find("NON-Mutagenic") > 0:
 #         df.at[i, 'Pred_Result'] = 0
 
+  
+parent = os.path.join(os.path.abspath(__file__), os.pardir)
 
-df = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\vega_predictions.xlsx", sheet_name = 'Sheet1')
-        
+filename = os.path.abspath(os.path.join(parent,'..', 
+                                        'Final_Data', 
+                                        'vega_predictions.xlsx'))
+
+df = pd.read_excel(filename, sheet_name = 'Sheet1')
+      
     
 #calculate the confusion matrix
 conf = confusion_matrix(df['result_from_database'], df['Pred_Result'])
