@@ -177,10 +177,17 @@ def RemoveHighestVIF(finaldata, VIF_threshhold, pref_descriptors):
     return finaldata
 ####################################
 
-#changes working directory
-os.chdir(r'C:\ResearchWorkingDirectory\finalData_QSAR\rawData')
+#set working directory
+# os.chdir(r'C:\ResearchWorkingDirectory\finalData_QSAR\rawData')
 
-data = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\small_mutagenicity_data.xlsx", sheet_name = 'Sheet1')
+parent = os.path.join(os.path.abspath(__file__), os.pardir)
+
+filename = os.path.abspath(os.path.join(parent,'..', 
+                                        'Final_Data', 
+                                        'mutagenicity_data.xlsx'))
+
+data = pd.read_excel(filename, sheet_name = 'Sheet1')
+
 
 #create a copy that won't be modified by any processing later
 headersx = list(data.columns)
@@ -195,6 +202,7 @@ headers2.remove('SMILES')
 headers2.remove('result')
 headers2.remove('CAS')
 headers2.remove('name')
+headers2.remove('Data Source')
 # headers2.remove('Unnamed: 0')
 
 dropnondata = []
@@ -226,7 +234,14 @@ clusters = kmeans.fit_predict(X)
 clust_DF = pd.DataFrame({'cluster':clusters, 'SMILES': dataOrig['SMILES']}) 
 
 #use the cluster data from bts_padel_lr_clust
-clust_DF = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\cluster_data.xlsx", sheet_name = 'cluster_assignments')
+
+filename = os.path.abspath(os.path.join(parent,'..', 
+                                        'Final_Data', 
+                                        'cluster_data.xlsx'))
+
+clust_DF = pd.read_excel(filename, sheet_name = 'cluster_assignments')
+
+
 
 #use for data accross the full equation
 data = dataOrig
@@ -239,7 +254,14 @@ data = dataOrig
 #clsuter 2 is larger molecules file 2 goes with it. 
 
 #the _1 file goes with the smaller molecules cluster, 215 molecules in it. 
-bestData = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\test_DescSelect_all.xlsx", sheet_name = 'Descriptors')
+
+filename = os.path.abspath(os.path.join(parent,'..', 
+                                        'Final_Data', 
+                                        'test_DescSelect_all.xlsx'))
+
+bestData = pd.read_excel(filename, sheet_name = 'Descriptors')
+
+
 
 
 #************************************
@@ -247,12 +269,9 @@ bestData = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagen
 
 allselectDesc = []
 
-#for the example dataset - finalIDS 50
-for i in range(30, 901,90):
-
-
-#for full dataset - finalIDS 72
-# for i in range(46, 901,90):
+#comment these lines out depending which cluster you want to run
+# for full dataset - finalIDS 72
+for i in range(46, 901,90):
 
     #larger molecules cluster - finalIDS 45
 # for i in range(23, 901,90):

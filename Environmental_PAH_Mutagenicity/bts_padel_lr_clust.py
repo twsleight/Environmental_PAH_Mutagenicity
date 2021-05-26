@@ -27,7 +27,7 @@ start_time = time.time()
 parent = os.path.join(os.path.abspath(__file__), os.pardir)
 filename = os.path.abspath(os.path.join(parent,'..', 
                                         'Final_Data', 
-                                        'small_mutagenicity_data.xlsx'))
+                                        'mutagenicity_data.xlsx'))
 
 data = pd.read_excel(filename, sheet_name = 'Sheet1')
 
@@ -45,6 +45,7 @@ headers2.remove('SMILES')
 headers2.remove('result')
 headers2.remove('CAS')
 headers2.remove('name')
+headers2.remove('Data Source')
 
 dropnondata = []
 for h in headers2: 
