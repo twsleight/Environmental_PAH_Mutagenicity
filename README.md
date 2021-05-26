@@ -15,5 +15,5 @@ The file "classify_mutagens.py" generates the primary ROC plots. There are some 
 
 You will also need openbabel and rdkit installed
 
-Note: This research is being actively used in other projects, so pushes may be made periodically but will not affect the overall functionality of the system. 
+Note: This research is being actively used in other projects, so pushes may be made periodically but will not affect the overall functionality of the system. Please feel free to contact the author with any questions.
 
