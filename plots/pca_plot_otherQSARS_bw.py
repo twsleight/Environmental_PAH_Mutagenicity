@@ -212,7 +212,9 @@ ax.spines['top'].set_linewidth(2)
 ax.spines['bottom'].set_linewidth(2)
 ax.spines['left'].set_linewidth(2)
 ax.spines['right'].set_linewidth(2)
+ax = plt.axes()
+ax.grid(False)
 plt.show()
 
-# fig.savefig('otherQSARS_bw.png', format='png', dpi=1200)
+fig.savefig('otherQSARS_bw.png', format='png', dpi=1200)
 
