@@ -10,6 +10,7 @@ data/*
 unpublished/*
 development/*
 plots/*.png
+plots/*.jpg
 *.mdl
 *.egg-info/
 __pycache__
