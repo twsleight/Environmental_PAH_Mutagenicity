@@ -11,9 +11,9 @@ read_ccris_data.py reads the data out of ccris, converts the cas numbers to smil
 
 padel_Data will look in the directory it was launched from for .out files. The smiles code needs to be in the header of the file as a comment. 
 
-A test dataset is provided as the manusript for this analysis is currently in review
+The file "classify_mutagens.py" generates the primary ROC plots. There are some lines of code to comment in/or depending on the ouput desired. In code commnets show where to do this
 
 You will also need openbabel and rdkit installed
 
-Note: This research is being actively used in other projects, so pushes may be made periodically but will not affect the overall functionality of the system. 
+Note: This research is being actively used in other projects, so pushes may be made periodically but will not affect the overall functionality of the system. Please feel free to contact the author with any questions.
 
