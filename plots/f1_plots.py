@@ -40,7 +40,7 @@ ax3.plot(x3,aveF1, color='red',lw=2, alpha=.8, label = r'Average F1 Score')
 ax3.fill_between(x3, tprs_lower, tprs_upper,color='blue', alpha = 0.2, label=r'$\pm$ 1 std. dev.')
 ax3.set_xlabel('Number of Descriptors', fontsize = 12)
 ax3.set_ylabel('F1 Score', fontsize = 12)
-ax3.legend(loc="lower right", fontsize = 10)
+ax3.legend(loc="upper right", fontsize = 10)
 
 ax3.text(0.2,.95,"(A)", fontsize = 12, color = 'black', horizontalalignment='right',
         verticalalignment='top', transform=ax3.transAxes)
