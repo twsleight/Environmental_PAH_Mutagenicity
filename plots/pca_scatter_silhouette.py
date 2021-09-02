@@ -26,6 +26,7 @@ filename = os.path.abspath(os.path.join(parent,'..',
                                         'mutagenicity_data.xlsx'))
 
 data = pd.read_excel(filename, sheet_name = 'Sheet1')
+smilesList = data['SMILES']
 
 data.dropna(axis = 0, inplace = True)
 
@@ -38,6 +39,8 @@ headers2.remove('SMILES')
 headers2.remove('result')
 headers2.remove('CAS')
 headers2.remove('name')
+headers2.remove('Data Source')
+
 data = data[headers2]
 
 #remove the zero data with calcuation failures
@@ -61,9 +64,14 @@ X = StandardScaler().fit_transform(data[headers2])
 X = X[:, ~np.isnan(X ).any(axis=0)]
 X = X[:, ~np.isinf(X ).any(axis=0)]
 
-principalComponents = PCA(n_components=10).fit_transform(X)
+
+pca = PCA(n_components=10)
+
+principalComponents = pca.fit_transform(X)
 PCA_components = pd.DataFrame(principalComponents)
 X = PCA_components.iloc[:,:5]
+
+PCA_components['SMILES'] = smilesList
 
 
 cluster_labels = kmeans.fit_predict(X)
@@ -72,11 +80,11 @@ clust_DF = pd.DataFrame({'cluster':clusters})
 
 # clust_DF2 = pd.read_excel(r"C:\ResearchWorkingDirectory\Environmental_PAH_Mutagenicity\Final_Data\cluster_data.xlsx", sheet_name = 'cluster_assignments')
 
-filename = os.path.abspath(os.path.join(parent,'..', 
-                                        'Final_Data', 
-                                        'cluster_data.xlsx'))
+# filename = os.path.abspath(os.path.join(parent,'..', 
+#                                         'Final_Data', 
+#                                         'cluster_data.xlsx'))
 
-clust_DF2 = pd.read_excel(filename, sheet_name = 'cluster_assignments')
+# clust_DF2 = pd.read_excel(filename, sheet_name = 'cluster_assignments')
 
 
 
@@ -182,13 +190,16 @@ ax20.set_xlabel("Silhouette coefficient values")
 
 # The vertical line for average silhouette score of all the values
 ax20.axvline(x=silhouette_avg, color="red", linestyle="--")
+ax20.set_facecolor('white')
+ax20 = plt.axes()
+ax20.grid(False)
+
 
 # Clear the yaxis labels / ticks
 ax20.set_yticks([])  
 ax20.set_xticks([-0.1, 0, 0.2, 0.4, 0.6])
-plt.grid(None)
+# plt.grid(None)
 plt.show()
 
 fig2.savefig(r'S6_silhouettebladesPCA.png', format='png', dpi=1200)
-
 
