@@ -50,10 +50,28 @@ filename = os.path.abspath(os.path.join(parent,'..',
 clust_DF = pd.read_excel(filename, sheet_name = 'cluster_assignments')
 
 
-orig_Data = dataOrig.loc[clust_DF['cluster']==2]
+orig_Data = dataOrig.loc[clust_DF['cluster']==1]
+# orig_Data = dataOrig
 allData = orig_Data.reset_index(drop = True)
-allData = allData.loc[allData['result']==1].reset_index(drop = True)
 
+
+# allData = allData.loc[allData['result']==1].reset_index(drop = True)
+
+#small cluster non mut
+#small cluster mut
+#large clsuter non mut
+#large cluster mut
+
+# selectedSmiles = ['','CC(C)Cc1ccc(C(C)C(=O)O)cc1', 'COc1cc(OC)c(OC)cc1C=O','CCCCCCc1ccc(O)cc1O',
+                  
+#                   'Oc1cc(O)c2ccccc2c1', 'O=CC(=O)c1ccccc1', 'c1ccc2c(c1)COC2',
+                  
+#                   'O=C1c2ccccc2C(=O)c2c(O)cc(O)cc21','O=C1c2ccccc2-c2ccccc21','O=C(O)c1occ(-c2ccccc2)c1-c1ccccc1',
+                  
+#                   'CC(=O)OCc1c2ccccc2cc2ccccc12', 'COc1cc(O)c2c(O)c3c(=O)oc(C)cc3c(OC)c2c1', 'COC(=O)c1cc2c(c3c1ccc1c(OC)cccc13)OCO2',
+#                   ]
+
+colormatrix = [0, 0,0,0,1,1,1,0,0,0,1,1,1]
 
 nrow = 3; ncol = 5;
 
@@ -70,14 +88,26 @@ os.chdir(r'C:\ResearchWorkingDirectory\tempImages')
 for ax in axs.reshape(-1):
        
     smiles = allData.loc[i+startpoint, 'SMILES']
+    # smiles = selectedSmiles[i]
     
+    # homor = allData.loc[allData['SMILES'] == smiles]['HOMO'].reset_index()  
+    # homo = homor['HOMO'][0]*27.2114
+
+    # spmin5r = allData.loc[allData['SMILES'] == smiles]['SpMin5_Bhi'].reset_index()  
+    # spmin5 = spmin5r['SpMin5_Bhi'][0]
+
     hlgap = allData.loc[i+startpoint, 'HLgap']    
     rdf55 = allData.loc[i+startpoint, 'RDF55s']
     
     print(i)
-    print(hlgap)
+    # print(homo)
     
+    # mutr = allData.loc[allData['SMILES'] == smiles]['result'].reset_index()  
+    # mut = mutr['result'][0]
+
     mut =  allData.loc[i+startpoint, 'result']
+    
+    # mut = colormatrix[i]
     
     if mut == 1:
         DrawingOptions.elemDict= {0: (0.5, 0.5, 0.5), 
@@ -91,6 +121,7 @@ for ax in axs.reshape(-1):
                                   53: (0.63, 0.12, 0.94)}
         
         DrawingOptions.defaultColor = (1,0,0)
+        mutColor = 'black'
 
     else:
         DrawingOptions.elemDict= {0: (0.5, 0.5, 0.5), 
@@ -104,6 +135,7 @@ for ax in axs.reshape(-1):
                                   53: (0.63, 0.12, 0.94)}
 
         DrawingOptions.defaultColor = (0,0,0)
+        mutColor = 'black'
    
     ax = plt.subplot(nrow,ncol,i)
      
@@ -122,17 +154,19 @@ for ax in axs.reshape(-1):
     #pause to make sure the image is finished
     time.sleep(1)
 
-    hlgap = 'HOMO LUMO Gap: {}'.format(round(hlgap, 2))+ ' eV'
-    RDF55 = 'RDF55s: {}'.format(round(rdf55, 2)) 
+    # homo = 'HOMO: {}'.format(round(homo, 2))+ ' eV'
+    # spmin5 = 'SpMin5_Bhi: {}'.format(round(spmin5, 2)) 
     
-    # plt.text(1,1400,hlgap, fontsize = 8, weight = 'bold')      
-    # plt.text(1,1600, RDF55, fontsize = 8, weight = 'bold')      
+    # plt.text(1,1400,homo, fontsize = 6, weight = 'bold')      
+    # plt.text(1,1600, spmin5, fontsize = 6, weight = 'bold')      
     
     plt.imshow(image)
     
-
+    
+    
+    
     ax.axis("on")
-    plt.setp(ax.spines.values(), linewidth=1, color = 'black')
+    plt.setp(ax.spines.values(), linewidth=1.25, color = mutColor)
     
 
     ax.xaxis.set_ticks([])
@@ -148,7 +182,7 @@ plt.tight_layout()
 plt.show()
 
 
-# fig.savefig('mut_large_Molecules.jpg', format='jpg', dpi=1200)
+# fig.savefig('SI examples other.jpg', format='jpg', dpi=1200)
 
 
 
