@@ -232,9 +232,9 @@ PCA_components = pd.DataFrame(principalComponents)
 X = PCA_components.iloc[:,:5]
 
 #initialized the random state so we get consistent results
-kmeans = KMeans(n_clusters=3, random_state=0)
-clusters = kmeans.fit_predict(X)
-clust_DF = pd.DataFrame({'cluster':clusters, 'SMILES': dataOrig['SMILES']}) 
+# kmeans = KMeans(n_clusters=3, random_state=0)
+# clusters = kmeans.fit_predict(X)
+# clust_DF = pd.DataFrame({'cluster':clusters, 'SMILES': dataOrig['SMILES']}) 
 
 #use the cluster data from bts_padel_lr_clust
 
@@ -252,21 +252,22 @@ clust_DF = pd.read_excel(filename, sheet_name = 'cluster_assignments')
 
 
 #use for data accross the full equation
-data = dataOrig
+# data = dataOrig
 
 #use to select data from just one cluster
-# data = dataOrig.loc[clust_DF['cluster']==2]
+data = dataOrig.loc[clust_DF['cluster']==2]
 
-# file 0 goes with cluster 0, small molecules
+
+
+
+# file 0 goes with cluster 0, small molecules 240 molecules in it. 
 #cluster 1 is other molecules
-#clsuter 2 is larger molecules file 
+#clsuter 2 is larger molecules file 315 molecules in it. 
 
-#the _0 file goes with the smaller molecules cluster, 215 molecules in it. 
-#the _2 file goes with the smaller molecules cluster, 301 molecules in it. 
 
 filename = os.path.abspath(os.path.join(parent,'..', 
                                         'Final_Data', 
-                                        'test_DescSelect_all.xlsx'))
+                                        'test_DescSelect_2.xlsx'))
 
 bestData = pd.read_excel(filename, sheet_name = 'Descriptors')
 
@@ -279,14 +280,14 @@ bestData = pd.read_excel(filename, sheet_name = 'Descriptors')
 allselectDesc = []
 
 #comment these lines out depending which cluster you want to run
-# for full dataset - finalIDS 72
-for i in range(46, 901,90):
+# for full dataset - finalIDS  80
+# for i in range(44, 901,90):
 
-    #larger molecules cluster - finalIDS 45
-# for i in range(23, 901,90):
+#     #larger molecules cluster - finalIDS  39
+for i in range(29, 901,90):
     
-    #small molecules - finalIDs 32
-# for i in range(16, 901,90):
+    # small molecules - finalIDs 41
+# for i in range(22, 901,90):
       
     curDesc = list(bestData[i].dropna()) 
 
@@ -396,8 +397,8 @@ ax0.fill_between(mean_fpr, tprs_lower, tprs_upper,color='blue',alpha=.2, label=r
 ax0.plot(mean_fpr,tprs_lower, color='k',linestyle = '--',lw =1, alpha=.8)
 ax0.plot(mean_fpr,tprs_upper, color='k',linestyle = '--',lw =1, alpha=.8)
 
-ax0.set_ylabel('Specificity', fontsize = 16, labelpad = 10)
-ax0.set_xlabel('Sensitivity/Recall', fontsize = 16, labelpad = 10)
+ax0.set_ylabel('Sensitivity/Recall', fontsize = 16, labelpad = 10)
+ax0.set_xlabel('1-Specificity', fontsize = 16, labelpad = 10)
 ax0.tick_params(axis='both', labelsize=14 )
 ax0.legend(loc="lower left", fontsize = 12)
 ax0.grid(False)
@@ -473,7 +474,7 @@ spreadVal = min(dfxPos['Coef']) - max(dfxNeg['Coef'])
 ax1 = plt.subplot(gs[0])
 sns.heatmap( dfxPos,ax = ax1, vmin = minVal+spreadVal, vmax = maxVal, cmap="jet", linewidths=0.5, 
             annot=True, cbar = False, fmt = ".2f", 
-            annot_kws={"size":"12","fontweight":"bold"}, yticklabels=True)
+            annot_kws={"size":"10","fontweight":"bold"}, yticklabels=True)
 
 ax1.tick_params(labelleft = True, labelright = False, rotation=0)
 ax1.set_xlabel("")
@@ -486,7 +487,7 @@ ax1.tick_params(left=False, bottom=False, labelsize = 12)
 ax2 = plt.subplot(gs[4])
 sns.heatmap( dfxNeg,ax = ax2,vmin = minVal, vmax = maxVal-spreadVal, cmap="jet", linewidths=0.5, 
             annot=True, cbar = False, fmt = ".2f", 
-            annot_kws={"size":"12","fontweight":"bold"}, yticklabels=True)
+            annot_kws={"size":"10","fontweight":"bold"}, yticklabels=True)
 
 
 ax2.tick_params(labelleft = False, labelright = True, rotation=0)
@@ -499,7 +500,7 @@ ax2.tick_params(left=False, bottom=False, labelsize = 12)
 plt.show()
 
 #Save a plot at this point if you'd like. 
-# fig.savefig(r'C:\Users\twsle\OneDrive\Documents\Second Paper\images\Final\ROC_all_vif.jpg', format='jpg', dpi=1200)
+# fig.savefig(r'C:\Users\twsle\OneDrive\Documents\Second Paper\images\Final\ROC_all.jpg', format='jpg', dpi=1200)
 
 
 #VIF section
@@ -549,12 +550,12 @@ ticks = np.arange(0,len(initalColumns),1)
 ax.set_xticks(ticks)
 ax.set_yticks(ticks)
 
-ax.set_xticklabels(list(initalColumns), fontsize = 10, rotation=-90, 
+ax.set_xticklabels(list(initalColumns), fontsize = 6, rotation=-90, 
                    ha = 'left', rotation_mode="anchor", fontweight = "bold")
 
 ax.xaxis.set_ticks_position('bottom')
 
-ax.set_yticklabels(list(initalColumns), fontsize = 10, fontweight = "bold")
+ax.set_yticklabels(list(initalColumns), fontsize = 6, fontweight = "bold")
 ax.grid(False)
 
 fig2.subplots_adjust(bottom=0.2, left = 0.2, top =0.9, right = 1)
@@ -562,7 +563,7 @@ plt.show()
 #******************************************************************
 
 #save off the correlation image
-# fig2.savefig(r'C:\Users\twsle\OneDrive\Documents\Second Paper\images\Final\Correlation_large.jpg', format='jpg', dpi=1200)
+# fig2.savefig(r'C:\Users\twsle\OneDrive\Documents\Second Paper\images\Final\Correlation_all.jpg', format='jpg', dpi=1200)
 #******************************************************************
 
 #redo the analysis for the ROC plot from above with  VIF reduced data
@@ -659,8 +660,8 @@ ax0.fill_between(mean_fpr, tprs_lower, tprs_upper,color='blue',alpha=.2, label=r
 ax0.plot(mean_fpr,tprs_lower, color='k',linestyle = '--',lw =1, alpha=.8)
 ax0.plot(mean_fpr,tprs_upper, color='k',linestyle = '--',lw =1, alpha=.8)
 
-ax0.set_ylabel('Specificity', fontsize = 16, labelpad = 10)
-ax0.set_xlabel('Sensitivity/Recall', fontsize = 16, labelpad = 10)
+ax0.set_ylabel('Sensitivity/Recall', fontsize = 16, labelpad = 10)
+ax0.set_xlabel('1-Specificity', fontsize = 16, labelpad = 10)
 ax0.tick_params(axis='both', labelsize=14 )
 ax0.legend(loc="lower left", fontsize = 12)
 ax0.grid(False)
@@ -781,5 +782,10 @@ plt.show()
 # writer = pd.ExcelWriter(r'C:\ResearchWorkingDirectory\Dissertation_Specific_Code\LargerColumnNames.xlsx', engine='xlsxwriter')
 # df.to_excel(writer, sheet_name='Sheet1', index=False)
 # writer.save()
+
+
+
+
+ 
 
 
